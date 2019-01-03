@@ -23,5 +23,35 @@ $ sudo apt install nvidia-410
 ```
 After installing the drivers above reboot your system for the new drivers to be enabled on the systems.
 
+## Install Anaconda on Ubuntu 16.04 LTS
+1. Download the latest Anaconda installer bash script at https://www.anaconda.com/download/#linux. Once it is finished, you should see the file "Anaconda3-2018.12-Linux-x86_64.sh" in ~/Downloads.
+2. Change directory to ~/Downloads, run ```bash Anaconda3-2018.12-Linux-x86_64.sh``` 
+
+## Install TensorFlow in Anaconda
+
+1. Install TensorFlow CPU: ```conda install tensorflow``` ([Stop Installing Tensorflow using pip for performance sake](https://towardsdatascience.com/stop-installing-tensorflow-using-pip-for-performance-sake-5854f9d9eb0c))
+2. Install TensorFlow GPU: ```conda install -c anaconda tensorflow-gpu```. Unfortunately, tf.Session does not work in my workstation. So I use pip to install TensorFlow GPU.
+3. Validate the installation of TensorFlow
+```
+import tensorflow as tf   
+from tensorflow.python.client import device_lib
+device_lib.list_local_devices() #this will show all CPU's and GPU's on your system
+```
+```
+import tensorflow as tf
+hello = tf.constant('Hello, TensorFlow!')
+sess = tf.Session()
+print(sess.run(hello))
+```
+```
+import tensorflow as tf
+with tf.device('/gpu:0'):
+    a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
+    b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
+    c = tf.matmul(a, b)
+
+with tf.Session() as sess:
+    print (sess.run(c))
+```
 
 
