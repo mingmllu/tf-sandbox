@@ -1,0 +1,23 @@
+# our base image
+FROM ubuntu:18.04
+
+# Install python pip and virtualenv
+ENV http_proxy 'http://proxy.lbs.alcatel-lucent.com:8000/'
+ENV https_proxy 'http://proxy.lbs.alcatel-lucent.com:8000/'
+RUN apt update -y
+RUN apt-get install python-pip python-dev build-essential -y
+
+RUN mkdir -p taxi
+WORKDIR ./taxi
+
+# install Python modules needed by the Python app
+COPY ./chicago_taxi .
+RUN pip install -r requirements.txt
+RUN jupyter nbextension install --py --symlink --sys-prefix tensorflow_model_analysis
+RUN jupyter nbextension enable --py --sys-prefix tensorflow_model_analysis
+
+# tell the port number the container should expose
+EXPOSE 8888
+
+# run the application
+CMD ["bash", "./tfdv_analyze_and_validate_local.sh"]
