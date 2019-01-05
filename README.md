@@ -154,7 +154,7 @@ with tf.device('/gpu:0'):
 with tf.Session() as sess:
     print (sess.run(c))
 ```
-## Train a neural network for semantic segmentation to validate the installation of CUDNN 
+## Validate the installation of CUDNN 
 You can use [the road-lane segmentation project](https://github.com/pantelis/CarND-Semantic-Segmentation-Project.git) to test if CUDNN is installed properly because the above validation tests do not invoke CUDNN.
 1. Create a virtual enviroment with Python 3: ```virtualenv --python=python3 .venv_py3```
 2. Run ```source .venv_py3/bin/activate``` to activate the virtual environment
