@@ -2,12 +2,38 @@
 
 Try out and test TensorFlow programs
 
-## Install NVIDIA Graphics Driver on Ubuntu 16.04 LTS
+## install CUDA, CuDNN and TensorFlow-GPU on Ubuntu 16.04
+
+Follow the [steps](http://blog.aicry.com/how-to-install-cuda-and-tensorflow-on-ubuntu-16-04/) and do not skip any of them.
+
+My hardware: HP Z420 workstation installed with Nvidia GeForce GTX 1080 Ti.
+
+In the step "Check device nodes", if the device files /dev/nvidia* do not exist, do nothing.
+
+In the step "Install CUDA package", I used the following runfiles:
+```
+cuda_9.0.176.1_linux.run
+cuda_9.0.176.2_linux.run
+cuda_9.0.176_384.81_linux.run
+cuda_9.0.176.3_linux.run
+cuda_9.0.176.4_linux.run
+```
+
+In the step "Install updates for CUDA", I was asked to enter the text mode and run ```sudo service gdm stop```. I got a negative message. This was ok. To exit the text mode, you can try to press ```Ctrl+Alt+F7```. I couldn't do the next step in the text mode.
+
+After I exited from the text mode, the dispaly resolution was changed and I couln't change it back. Don't panic. Continue...
+
+In the step "Install graphic driver", becasue I was working behind proxy, I had to run ```sudo -E add-apt-repository ppa:graphics-drivers/ppa``` (note the option -E) to add the official Nvidia PPA to Ubuntu. I used Nviida driver version 390: ```sudo apt install nvidia-390```
+
+In the step "Install CuDNN", I downloaded the deb files under ```cuDNN v7.3.1 (Sept 28, 2018), for CUDA 9.0```:
+```
+libcudnn7_7.3.1.20-1+cuda9.0_amd64.deb
+libcudnn7-dev_7.3.1.20-1+cuda9.0_amd64.deb
+libcudnn7-doc_7.3.1.20-1+cuda9.0_amd64.deb
+```
+
 
 https://gist.github.com/zhanwenchen/e520767a409325d9961072f666815bb8
-
-http://blog.aicry.com/how-to-install-cuda-and-tensorflow-on-ubuntu-16-04/
-
 https://websiteforstudents.com/install-proprietary-nvidia-gpu-drivers-on-ubuntu-16-04-17-10-18-04/
 
 ### Step 1: Add The Official Nvidia PPA To Ubuntu
@@ -21,108 +47,7 @@ See https://askubuntu.com/questions/53146/how-do-i-get-add-apt-repository-to-wor
 ### Step 2: Update And Install Nvidia Drivers
 
 Now that the PPA is installed, run the commands below to install the latest drivers for your system (nvidia-410 released on October 16, 2018 supports Nvidia GeForce GTX 1080 Ti that is the GPU card installed on my machine, see https://www.geforce.com/drivers/results/138959):
-```
-$ sudo apt update
-$ sudo apt install nvidia-410
-```
-After installing the drivers above reboot your system for the new drivers to be enabled on the systems. Then use the lsmod command to check your installation status with the following command. It will list all currently loaded kernel modules in Linux, then filter only nvidia using grep command.
-```
-$ lsmod | grep nvidia
-```
-You should see the following installation status
-```
-nvidia_uvm            790528  0
-nvidia_drm             40960  4
-nvidia_modeset       1040384  8 nvidia_drm
-nvidia              16560128  334 nvidia_modeset,nvidia_uvm
-drm_kms_helper        172032  1 nvidia_drm
-drm                   401408  7 nvidia_drm,drm_kms_helper
-ipmi_msghandler        53248  3 nvidia,ipmi_devintf,ipmi_si
-```
-Check device node:
-```
-$ ls -l /dev/nvidia*
-```
-You should see something like this
-```
-crw-rw-rw- 1 root root 195,   0 Oct 22 12:40 /dev/nvidia0
-crw-rw-rw- 1 root root 195, 255 Oct 22 12:40 /dev/nvidiactl
-crw-rw-rw- 1 root root 195, 254 Oct 22 12:40 /dev/nvidia-modeset
-crw-rw-rw- 1 root root 236,   0 Oct 22 12:40 /dev/nvidia-uvm
-```
-Some times updates do not work well as expected. If you face any issues with the latest drivers installation such as black screen on startup, you can remove it as follows.
-```
-$ sudo apt-get purge nvidia*
-```
-If you want to completely remove graphics-drivers PPA as well, run the following command to remove PPA.
-```
-$ sudo apt-add-repository --remove ppa:graphics-drivers/ppa
-```
 
-## Install CUDA 10.0
-
-https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1604&target_type=runfilelocal
-
-Download Installer for Linux Ubuntu 16.04 x86_64.
-
-CD to the Downloads directory, run the following:
-```
-$ chmod +x cuda_10.0.130_410.48_linux.run
-$ ./cuda_10.0.130_410.48_linux.run --extract=$HOME
-```
-You'll see the three runfiles:
-```
--rwxrwxr-x 1 mmlu mmlu 1834769129 Oct 22 23:44 cuda-linux.10.0.130-24817639.run*
--rwxrwxr-x 1 mmlu mmlu   86469433 Oct 22 23:44 cuda-samples.10.0.130-24817639-linux.run*
--rwxrwxr-x 1 mmlu mmlu  105930536 Oct 22 23:44 NVIDIA-Linux-x86_64-410.48.run*
-```
-Run
-```
-$ sudo ./cuda-linux.10.0.130-24817639.run
-$ sudo ./cuda-samples.10.0.130-24817639-linux.run
-```
-After the installation finishes, configure the runtime library, run
-```
-$ sudo bash -c "echo /usr/local/cuda/lib64/ > /etc/ld.so.conf.d/cuda.conf"
-$ sudo ldconfig
-```
-
-Run 
-
-```
-$ sudo vi /etc/profile.d/cuda.sh
-```
-and add the following exports to /etc/profile.d/cuda.sh:
-
-```
-export PATH=/usr/local/cuda/bin:$PATH 
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-```
-
-Install CUDA Profile Tools Interface:
-
-```
-$ sudo apt-get install -y libcupti-dev
-```
-
-And add the following line to /etc/profile.d/cuda.sh:
-
-```
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda/extras/CUPTI/lib64
-```
-
-At the end, reboot your system:
-
-```
-$ sudo reboot
-```
-
-Verify the installation
-
-```
-$ cd /usr/local/cuda/samples
-$ sudo make
-```
 
 ## Install Anaconda on Ubuntu 16.04 LTS
 1. Download the latest Anaconda installer bash script at https://www.anaconda.com/download/#linux. Once it is finished, you should see the file "Anaconda3-2018.12-Linux-x86_64.sh" in ~/Downloads.
