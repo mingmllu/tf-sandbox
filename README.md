@@ -154,5 +154,13 @@ with tf.device('/gpu:0'):
 with tf.Session() as sess:
     print (sess.run(c))
 ```
-
+## Train a neural network for semantic segmentation to validate the installation of CUDNN 
+You can use [the road-lane segmentation project](https://github.com/pantelis/CarND-Semantic-Segmentation-Project.git) to test if CUDNN is installed properly because the above validation tests do not invoke CUDNN.
+1. Create a virtual enviroment with Python 3: ```virtualenv --python=python3 .venv_py3```
+2. Run ```source .venv_py3/bin/activate``` to activate the virtual environment
+3. Run ```git clone https://github.com/pantelis/CarND-Semantic-Segmentation-Project.git```
+4. Download the [dataset](http://www.cvlibs.net/download.php?file=data_road.zip) used in the project: ```https://s3.eu-central-1.amazonaws.com/avg-kitti/data_road.zip``` and then extract the package into the directory ```CarND-Semantic-Segmentation-Project/data```
+5. Dowload the pre-trained [VGG network](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/vgg.zip) and then extract it into the same directory ```CarND-Semantic-Segmentation-Project/data```
+6. Install the packages numpy, scipy and tqdm: ```pip install numpy scipy tqdm```
+7. Launch the training: ```python main.py```. You will see the progress information printed on the screen. If every thing goes normally, the training will be finsihed in a few minutes.
 
