@@ -4,13 +4,13 @@ Try out and test TensorFlow programs
 
 ## Install CUDA, CuDNN and TensorFlow-GPU on Ubuntu 16.04
 
-Follow the [steps](http://blog.aicry.com/how-to-install-cuda-and-tensorflow-on-ubuntu-16-04/) and do not skip any of them.
+Follow the [steps](http://blog.aicry.com/how-to-install-cuda-and-tensorflow-on-ubuntu-16-04/) and do not skip any step.
 
-My hardware: HP Z420 workstation installed with Nvidia GeForce GTX 1080 Ti.
+Hardware: HP Z420 workstation installed with Nvidia GeForce GTX 1080 Ti.
 
 In the step "Check device nodes", if the device files /dev/nvidia* do not exist, do nothing.
 
-In the step "Install CUDA package", I used the following runfiles:
+In the step "Install CUDA package", the following runfiles can be used:
 ```
 cuda_9.0.176.1_linux.run
 cuda_9.0.176.2_linux.run
@@ -19,13 +19,13 @@ cuda_9.0.176.3_linux.run
 cuda_9.0.176.4_linux.run
 ```
 
-In the step "Install updates for CUDA", I was asked to enter the text mode and run ```sudo service gdm stop```. I got a negative message. This was ok. To exit the text mode, you can try to press ```Ctrl+Alt+F7```. I couldn't do the next step in the text mode.
+In the step "Install updates for CUDA", after entering the text mode, you are asked to run ```sudo service gdm stop```. You may get a negative message. This is okay. To exit the text mode, you can try to press ```Ctrl+Alt+F7```. In the text mode, you can't do the next step.
 
-After I exited from the text mode, the dispaly resolution was changed and I couln't change it back. Don't panic. Continue...
+After you exit the text mode, the dispaly resolution may be changed! Don't panic. Continue...
 
-In the step "Install graphic driver", becasue I was working [behind proxy](https://askubuntu.com/questions/53146/how-do-i-get-add-apt-repository-to-work-through-a-proxy), I had to use the option -E to tell sudo to preserve the environment assuming that proxies have been already configured in .bashrc file. So run ```sudo -E add-apt-repository ppa:graphics-drivers/ppa``` to add the official Nvidia PPA to Ubuntu. I used Nviida driver version 390: ```sudo apt install nvidia-390```
+In the step "Install graphic driver", if you are working [behind proxy](https://askubuntu.com/questions/53146/how-do-i-get-add-apt-repository-to-work-through-a-proxy), you have to use the option -E to tell sudo to preserve the environment assuming that proxies have been already configured in .bashrc file. So run ```sudo -E add-apt-repository ppa:graphics-drivers/ppa``` to add the official Nvidia PPA to Ubuntu. You may use Nvidia driver version 390: ```sudo apt install nvidia-390```
 
-In the step "Install CuDNN", I downloaded the deb files under ```cuDNN v7.3.1 (Sept 28, 2018), for CUDA 9.0```:
+In the step "Install CuDNN", you can download the deb files under ```cuDNN v7.3.1 (Sept 28, 2018), for CUDA 9.0```:
 ```
 libcudnn7_7.3.1.20-1+cuda9.0_amd64.deb
 libcudnn7-dev_7.3.1.20-1+cuda9.0_amd64.deb
@@ -35,7 +35,7 @@ libcudnn7-doc_7.3.1.20-1+cuda9.0_amd64.deb
 [Ref2](https://websiteforstudents.com/install-proprietary-nvidia-gpu-drivers-on-ubuntu-16-04-17-10-18-04/)
 
 ## Install Anaconda on Ubuntu 16.04 LTS
-1. Download the latest Anaconda installer bash script at https://www.anaconda.com/download/#linux. Once it is finished, you should see the file "Anaconda3-2018.12-Linux-x86_64.sh" in ~/Downloads.
+1. Download the latest Anaconda installer bash script at https://www.anaconda.com/download/#linux. Don't worry about Anaconda's Python version. If you need a specific Python version, you can create a conda environment with the Python version. Once it is finished, you should see the file "Anaconda3-2018.12-Linux-x86_64.sh" in ~/Downloads.
 2. Change directory to ~/Downloads, run ```bash Anaconda3-2018.12-Linux-x86_64.sh``` 
 
 ## Install TensorFlow in Anaconda
