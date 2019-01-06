@@ -2,7 +2,7 @@
 
 Try out and test TensorFlow programs
 
-## install CUDA, CuDNN and TensorFlow-GPU on Ubuntu 16.04
+## Install CUDA, CuDNN and TensorFlow-GPU on Ubuntu 16.04
 
 Follow the [steps](http://blog.aicry.com/how-to-install-cuda-and-tensorflow-on-ubuntu-16-04/) and do not skip any of them.
 
@@ -23,7 +23,7 @@ In the step "Install updates for CUDA", I was asked to enter the text mode and r
 
 After I exited from the text mode, the dispaly resolution was changed and I couln't change it back. Don't panic. Continue...
 
-In the step "Install graphic driver", becasue I was working behind proxy, I had to run ```sudo -E add-apt-repository ppa:graphics-drivers/ppa``` (note the option -E) to add the official Nvidia PPA to Ubuntu. I used Nviida driver version 390: ```sudo apt install nvidia-390```
+In the step "Install graphic driver", becasue I was working [behind proxy](https://askubuntu.com/questions/53146/how-do-i-get-add-apt-repository-to-work-through-a-proxy), I had to use the option -E to tell sudo to preserve the environment assuming that proxies have been already configured in .bashrc file. So run ```sudo -E add-apt-repository ppa:graphics-drivers/ppa``` to add the official Nvidia PPA to Ubuntu. I used Nviida driver version 390: ```sudo apt install nvidia-390```
 
 In the step "Install CuDNN", I downloaded the deb files under ```cuDNN v7.3.1 (Sept 28, 2018), for CUDA 9.0```:
 ```
@@ -31,23 +31,8 @@ libcudnn7_7.3.1.20-1+cuda9.0_amd64.deb
 libcudnn7-dev_7.3.1.20-1+cuda9.0_amd64.deb
 libcudnn7-doc_7.3.1.20-1+cuda9.0_amd64.deb
 ```
-
-
-https://gist.github.com/zhanwenchen/e520767a409325d9961072f666815bb8
-https://websiteforstudents.com/install-proprietary-nvidia-gpu-drivers-on-ubuntu-16-04-17-10-18-04/
-
-### Step 1: Add The Official Nvidia PPA To Ubuntu
-
-To work behind proxy in office, tell sudo to preserve the environment with the -E option assuming that proxies have been already configured in .bashrc file:
-```
-$ sudo -E add-apt-repository ppa:graphics-drivers/ppa
-```
-See https://askubuntu.com/questions/53146/how-do-i-get-add-apt-repository-to-work-through-a-proxy for details.
-
-### Step 2: Update And Install Nvidia Drivers
-
-Now that the PPA is installed, run the commands below to install the latest drivers for your system (nvidia-410 released on October 16, 2018 supports Nvidia GeForce GTX 1080 Ti that is the GPU card installed on my machine, see https://www.geforce.com/drivers/results/138959):
-
+[Ref1](https://gist.github.com/zhanwenchen/e520767a409325d9961072f666815bb8)
+[Ref2](https://websiteforstudents.com/install-proprietary-nvidia-gpu-drivers-on-ubuntu-16-04-17-10-18-04/)
 
 ## Install Anaconda on Ubuntu 16.04 LTS
 1. Download the latest Anaconda installer bash script at https://www.anaconda.com/download/#linux. Once it is finished, you should see the file "Anaconda3-2018.12-Linux-x86_64.sh" in ~/Downloads.
