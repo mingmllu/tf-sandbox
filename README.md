@@ -37,7 +37,10 @@ libcudnn7-doc_7.3.1.20-1+cuda9.0_amd64.deb
 ## Install Anaconda on Ubuntu 16.04 LTS
 1. Download the latest Anaconda installer bash script at https://www.anaconda.com/download/#linux. Don't worry about Anaconda's Python version. If you need a specific Python version, you can create a conda environment with the Python version. Once it is finished, you should see the file "Anaconda3-2018.12-Linux-x86_64.sh" in ~/Downloads.
 2. Change directory to ~/Downloads, run ```bash Anaconda3-2018.12-Linux-x86_64.sh``` 
-
+3. Create a virtual environment
+```
+conda create -n yourenvname python=x.x anaconda
+```
 ## Install TensorFlow in Anaconda
 
 1. Install TensorFlow CPU: ```conda install tensorflow``` ([Stop Installing Tensorflow using pip for performance sake](https://towardsdatascience.com/stop-installing-tensorflow-using-pip-for-performance-sake-5854f9d9eb0c))
