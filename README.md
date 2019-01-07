@@ -41,6 +41,10 @@ libcudnn7-doc_7.3.1.20-1+cuda9.0_amd64.deb
 ```
 conda create -n yourenvname python=x.x anaconda
 ```
+4. Remove a conda environment
+```
+$ conda env remove --name YOUR_ENV_NAME
+```
 ## Install TensorFlow in Anaconda
 
 1. Install TensorFlow CPU: ```conda install tensorflow``` ([Stop Installing Tensorflow using pip for performance sake](https://towardsdatascience.com/stop-installing-tensorflow-using-pip-for-performance-sake-5854f9d9eb0c))
