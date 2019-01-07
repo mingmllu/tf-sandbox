@@ -74,3 +74,8 @@ You can use [the road-lane segmentation project](https://github.com/pantelis/Car
 6. Install the packages numpy, scipy and tqdm: ```pip install numpy scipy tqdm```
 7. Launch the training: ```python main.py```. You will see the progress information printed on the screen. If every thing goes normally, the training will be finsihed in a few minutes.
 
+## Start a GPU container with Python 3, using the Python interpreter
+```
+$ docker run -it --rm --runtime=nvidia tensorflow/tensorflow:latest-gpu-py3 python
+```
+
