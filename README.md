@@ -95,6 +95,28 @@ $ pip install --user Cython
 $ pip install --user contextlib2
 $ pip install --user jupyter
 $ pip install --user matplotlib
+$ cd ~/Downloads
+$ git clone https://github.com/cocodataset/cocoapi.git
+$ cd cocoapi/PythonAPI
+$ make
+$ cp -r pycocotools <path_to_tensorflow>/models/research/
 
+# From tensorflow/models/research/
+$ wget -O protobuf.zip https://github.com/google/protobuf/releases/download/v3.0.0/protoc-3.0.0-linux-x86_64.zip
+$ unzip protobuf.zip
 
+# From tensorflow/models/research/
+./bin/protoc object_detection/protos/*.proto --python_out=.
+
+# From tensorflow/models/research/
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+# This command needs to run from every new terminal you start. If you wish to avoid running 
+# this manually, you can add it as a new line to the end of your ~/.bashrc file, replacing #
+# `pwd` with the absolute path of tensorflow/models/research on your system.
+
+# Make sure you are in the virtual environment, from tensorflow/models/research/, testing the installation
+$ python object_detection/builders/model_builder_test.py
+......................
+----------------------------------------------------------------------
+Ran 22 tests in 0.104s
 ```
