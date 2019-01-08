@@ -86,3 +86,15 @@ You can use [the road-lane segmentation project](https://github.com/pantelis/Car
 $ docker run -it --rm --runtime=nvidia tensorflow/tensorflow:latest-gpu-py3 python
 ```
 
+## [TensorFlow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection)
+```
+$ pip install tensorflow-gpu
+
+$ sudo apt-get install protobuf-compiler python-pil python-lxml python-tk
+$ pip install --user Cython
+$ pip install --user contextlib2
+$ pip install --user jupyter
+$ pip install --user matplotlib
+
+
+```
