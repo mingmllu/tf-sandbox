@@ -120,3 +120,4 @@ $ python object_detection/builders/model_builder_test.py
 ----------------------------------------------------------------------
 Ran 22 tests in 0.104s
 ```
+[Slow inference speed of object detection models and a hack as solution](https://github.com/tensorflow/models/issues/3270)
