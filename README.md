@@ -104,6 +104,7 @@ $ pip install tensorflow-gpu
 5. Check the version of the installed TensorFlow
 ```
 $ python -c "import tensorflow as tf; print(tf.VERSION)"
+1.12.0
 ```
 6. Check out the git repo branch corresponding to the installed TensorFlow. For example, if it is TensorFlow 1.12, do as below
 ```
