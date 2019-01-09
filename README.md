@@ -104,7 +104,7 @@ $ pip install tensorflow-gpu
 5. Check the version of the installed TensorFlow
 6. Check out the git repo branch corresponding to the installed TensorFlow. For example, if it is TensorFlow 1.12, do as below
 ```
-$ git branch cnn_tf_v1.12_compatible
+$ git checkout cnn_tf_v1.12_compatible
 ```
 7. Change dircetory ```cd benchmarks/scripts/tf_cnn_benchmarks``` and run the test on single-GPU machine:
 ```
