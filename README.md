@@ -71,8 +71,8 @@ with tf.device('/gpu:0'):
 with tf.Session() as sess:
     print (sess.run(c))
 ```
-## Validate the installation of CuDNN 
-You can use [the road-lane segmentation project](https://github.com/pantelis/CarND-Semantic-Segmentation-Project.git) to test if CUDNN is installed properly because the above validation tests do not invoke CUDNN.
+## Validate the installation of CuDNN - Approach 1
+You can use [the road-lane segmentation project](https://github.com/pantelis/CarND-Semantic-Segmentation-Project.git) to test if CUDNN is installed properly because the above validation tests do not invoke CuDNN.
 1. Create a virtual enviroment with Python 3: ```virtualenv --python=python3 .venv_py3```
 2. Run ```source .venv_py3/bin/activate``` to activate the virtual environment
 3. Run ```git clone https://github.com/pantelis/CarND-Semantic-Segmentation-Project.git```
@@ -80,6 +80,89 @@ You can use [the road-lane segmentation project](https://github.com/pantelis/Car
 5. Dowload the pre-trained [VGG network](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/vgg.zip) and then extract it into the same directory ```CarND-Semantic-Segmentation-Project/data```
 6. Install the packages numpy, scipy and tqdm: ```pip install numpy scipy tqdm```
 7. Launch the training: ```python main.py```. You will see the progress information printed on the screen. If every thing goes normally, the training will be finsihed in a few minutes.
+
+## Validate the installation of CuDNN - Approach 2
+[Benchmark your GPU-capable platform](https://www.tensorflow.org/guide/performance/benchmarks)
+
+[Methodology](https://github.com/tensorflow/benchmarks/tree/master/scripts/tf_cnn_benchmarks)
+1. Create a virtual environment
+```
+$ virtualenv --python=python3 _venv_gpu_py3_benchmark
+```
+2. Enter the virtual environment:
+```
+$ source _venv_gpu_py3_benchmark/bin/activate
+```
+3. Clone the TensorFlow Benchmarks repo
+```
+$ git clone https://github.com/tensorflow/benchmarks.git
+```
+4. Install TensorFlow-GPU
+```
+$ pip install tensorflow-gpu
+```
+5. Check the version of the installed TensorFlow
+6. Check out the git repo branch corresponding to the installed TensorFlow. For example, if it is TensorFlow 1.12, do as below
+```
+$ git branch cnn_tf_v1.12_compatible
+```
+7. Change dircetory ```cd benchmarks/scripts/tf_cnn_benchmarks``` and run the test on single-GPU machine:
+```
+$ python tf_cnn_benchmarks.py --num_gpus=1 --batch_size=32 --model=resnet50 --variable_update=parameter_server
+2019-01-08 23:12:36.719973: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:964] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-01-08 23:12:36.720494: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.12GiB
+2019-01-08 23:12:36.720515: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-01-08 23:12:36.979361: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-01-08 23:12:36.979404: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-01-08 23:12:36.979412: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-01-08 23:12:36.979681: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 9779 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+TensorFlow:  1.12
+Model:       vgg16
+Dataset:     imagenet (synthetic)
+Mode:        BenchmarkMode.TRAIN
+SingleSess:  False
+Batch size:  32 global
+             32.0 per device
+Num batches: 100
+Num epochs:  0.00
+Devices:     ['/gpu:0']
+Data format: NCHW
+Optimizer:   sgd
+Variables:   parameter_server
+==========
+Generating training model
+Initializing graph
+W0108 23:12:37.619437 140034087950080 tf_logging.py:125] From /home/mmlu/Playground/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2157: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+2019-01-08 23:12:37.729993: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-01-08 23:12:37.730060: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-01-08 23:12:37.730069: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-01-08 23:12:37.730077: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-01-08 23:12:37.730320: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 9779 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+I0108 23:12:37.927248 140034087950080 tf_logging.py:115] Running local_init_op.
+I0108 23:12:37.956495 140034087950080 tf_logging.py:115] Done running local_init_op.
+Running warm up
+Done warm up
+Step	Img/sec	total_loss
+1	images/sec: 128.3 +/- 0.0 (jitter = 0.0)	7.268
+10	images/sec: 131.8 +/- 0.5 (jitter = 2.0)	7.238
+20	images/sec: 132.2 +/- 0.3 (jitter = 1.3)	7.262
+30	images/sec: 132.3 +/- 0.2 (jitter = 1.4)	7.228
+40	images/sec: 132.2 +/- 0.3 (jitter = 1.4)	7.295
+50	images/sec: 132.1 +/- 0.2 (jitter = 1.3)	7.284
+60	images/sec: 132.2 +/- 0.2 (jitter = 1.3)	7.253
+70	images/sec: 132.2 +/- 0.2 (jitter = 1.3)	7.258
+80	images/sec: 132.2 +/- 0.2 (jitter = 1.5)	7.251
+90	images/sec: 132.2 +/- 0.2 (jitter = 1.4)	7.257
+100	images/sec: 132.2 +/- 0.2 (jitter = 1.4)	7.260
+----------------------------------------------------------------
+total images/sec: 132.11
+----------------------------------------------------------------
+```
 
 ## Start a GPU container with Python 3, using the Python interpreter
 ```
