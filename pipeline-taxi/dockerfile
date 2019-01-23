@@ -2,9 +2,7 @@
 FROM ubuntu:18.04
 
 # Install python pip and virtualenv
-ENV http_proxy 'http://proxy.lbs.alcatel-lucent.com:8000/'
-ENV https_proxy 'http://proxy.lbs.alcatel-lucent.com:8000/'
-RUN apt update -y
+RUN apt-get update -y
 RUN apt-get install python-pip python-dev build-essential -y
 
 RUN mkdir -p taxi
