@@ -210,3 +210,5 @@ Ran 22 tests in 0.104s
 README.md: [Tensorflow detection model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
 
 [Slow inference speed of object detection models and a hack as solution](https://github.com/tensorflow/models/issues/3270)
+
+[How to install Tensorflow GPU with CUDA 10.0 for python on Ubuntu](https://www.pytorials.com/how-to-install-tensorflow-gpu-with-cuda-10-0-for-python-on-ubuntu/)
